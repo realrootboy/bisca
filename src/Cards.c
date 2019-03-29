@@ -20,7 +20,7 @@ Hand* createHand(){
 }
 
 // Destroys the Hand
-void destroyHand( Hand* h ){
+void destroyHand( Hand *h ){
     
     if( h == NULL ) return;
 
@@ -31,7 +31,7 @@ void destroyHand( Hand* h ){
 
     }
 
-    Cards* current = h->head;
+    Cards *current = h->head;
     
     h->head = current->next;
     h->size--;
@@ -82,11 +82,22 @@ void pop( Hand *h ){
 
     }
 
-    Cards* current = h->head;
+    Cards *current = atPos(h, h->size - 1);
+    Cards *previous;
 
-    h->head = current->next;
     h->size--;
     
+    if( current == h->head ){
+        
+        free(current);
+        h->head = NULL;
+        return;
+
+    }
+
+    previous = atPos(h, h->size - 1);
+    previous->next = NULL;
+
     free(current);
 
 }
@@ -94,14 +105,21 @@ void pop( Hand *h ){
 // Prints the Hand
 void printList( Hand *h ){
 
-    if( h == NULL || h->head == NULL ){
+    if( h == NULL ){
         
         printf("Empty list.\n");
         return;
 
     }
 
-    Cards* current = h->head;
+    if( h->head == NULL ){
+    
+        printf("Empty list.\n");
+        return;
+
+    }
+
+    Cards *current = h->head;
 
     while( current != NULL ){
         
@@ -121,16 +139,82 @@ int isEmpty( Hand *h ){ return h->size == 0; }
 
 // Gives the Card in the 'index' Position 
 Cards* atPos( Hand *h, int index ){
+     
+    if( h == NULL ) return NULL;
+    
+    if( index >= h->size || index < 0 ){
+    
+        printf("Index out of list.\n");
+        return NULL;
+
+    }
+    
+    int i = 0;
+    
+    Cards *current = h->head;
+
+    for( i = 0 ; i < index ; i++ ) current = current->next;
+
+    printf("Card in %d => [Suit: %d, Number: %d]\n",
+                index, current->data.suit, current->data.number);
+
+    return current;
 
 }
 
 // Gives a Index of Card Named by 'c'
 int indexOf( Hand *h, Cards *c ){
+    
+    if( h == NULL ) return -1;
+
+    if( h->head == NULL ) return -1;
+
+    int count = 0;
+    
+    Cards *current = h->head;
+
+    while( current != NULL ){
+        
+        if( current == c ) return count;
+
+        current = current->next;
+        count++;
+
+    }
+
+    return -1;
 
 }
 
 // Erases the Card in the 'index' Position
 void erase( Hand *h, int index ){
+    
+    if( h == NULL ) return;
+    
+    if( index >= h->size || index < 0 ){
+        
+        printf("Index out of list.");
+        return;
+
+    }
+
+    Cards *current = atPos(h, index);
+    Cards *previous;
+
+    h->size--;
+
+    if( current == h->head ){
+        
+        free(h->head);
+        h->head = NULL;
+        return;
+
+    }
+
+    previous = atPos(h, index - 1);
+    previous->next = current->next;
+
+    free(current);
 
 }
 
@@ -140,7 +224,7 @@ void insert( Hand *h, DataCard card, int index ){
 }
 
 // Exchange the Card named by 'cA' with Card by 'cB'
-void xchgCards( Hand *h, Cards* cA, Cards* cB ){
+void xchgCards( Hand *h, Cards *cA, Cards *cB ){
 
 }
 

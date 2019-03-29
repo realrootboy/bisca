@@ -28,7 +28,7 @@ typedef struct hand {
 // Creates the Hand
 Hand* createHand();
 // Destroys the Hand
-void destroyHand( Hand* h );
+void destroyHand( Hand *h );
 // Push a Card by Hand
 void push( Hand *h, DataCard card );
 // Pop a Card by Hand
@@ -46,6 +46,6 @@ void erase( Hand *h, int index );
 // Inserts the Card in the 'index' Position
 void insert( Hand *h, DataCard card, int index );
 // Exchange the Card named by 'cA' with Card by 'cB'
-void xchgCards( Hand *h, Cards* cA, Cards* cB );
+void xchgCards( Hand *h, Cards *cA, Cards *cB );
 
 #endif

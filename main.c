@@ -22,8 +22,8 @@ int main( void ){
     push( h, carta );
 
     pop( h );
-
-    printList( h );
+    
+    printList( h );    
 
     destroyHand( h );
 
