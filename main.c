@@ -8,6 +8,8 @@ int main( void ){
 
     DataCard carta;
 
+    Cards *c1, *c2;
+
     carta.suit = 1;
     carta.number = 7;
 
@@ -21,9 +23,14 @@ int main( void ){
 
     push( h, carta );
 
-    pop( h );
-    
-    printList( h );    
+    c1 = atPos(h, 0);
+    c2 = atPos(h, 1);
+
+    printList( h );
+
+    xchgCards(h, c1, c2);
+
+    printList( h );
 
     destroyHand( h );
 
