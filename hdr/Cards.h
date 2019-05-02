@@ -43,8 +43,12 @@ Cards* atPos( Hand *h, int index );
 int indexOf( Hand *h, Cards *c );
 // Erases the Card in the 'index' Position
 void erase( Hand *h, int index );
+// Erases the Card in the 'index' Position and Return;
+Cards* erasePick( Hand *h, int index);
 // Inserts the Card in the 'index' Position
 void insert( Hand *h, DataCard card, int index );
+// Inserts a Existent Node at last position
+void insertNode( Hand *h, Cards *node );
 // Exchange the Card named by 'cA' with Card by 'cB'
 void xchgCards( Hand *h, Cards *cA, Cards *cB );
 

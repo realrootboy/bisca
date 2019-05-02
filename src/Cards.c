@@ -171,6 +171,29 @@ void erase( Hand *h, int index ){
 
     free(current);
 }
+// Erases the Card in the 'index' Position and Return
+Cards* erasePick( Hand *h, int index){
+    if( h = NULL ) return;
+    if( index >= h->size || index < 0 ){
+        printf("Index out of list.");
+        return;
+    }
+
+    Cards *current = atPos(h, index);
+    Cards *previous;
+
+    h->size--;
+
+    if( current == h->head ){
+        h->head = current->next;
+        return current;
+    }
+
+    previous = atPos(h, index - 1);
+    previous->next = current->next;
+
+    return current;
+}
 
 // Inserts the Card in the 'index' Position
 void insert( Hand *h, DataCard card, int index ){
@@ -193,6 +216,27 @@ void insert( Hand *h, DataCard card, int index ){
     cardn->next = previous->next;
     
     previous->next = cardn;
+}
+
+// Inserts a Existest Node at last position
+void insertNode( Hand *h, Cards *node ){
+    if( h = NULL ) return;
+    if( node == NULL ) return;
+
+    h->size++;
+
+    if( h->head == NULL ){
+        h->head = node;
+        return;
+    }
+
+    Cards* aux;
+
+    while( aux->next != NULL ){
+        aux = aux->next;
+    }
+
+    aux->next = node;
 }
 
 // Exchange the Card named by 'cA' with Card by 'cB'
