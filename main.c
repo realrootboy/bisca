@@ -24,7 +24,7 @@ int main( void ){
     push( h, carta );
 
     c1 = atPos(h, 0);
-    c2 = atPos(h, 1);
+    c2 = atPos(h, 2);
 
     printList( h );
 

@@ -200,10 +200,14 @@ void xchgCards( Hand *h, Cards *cA, Cards *cB ){
     if( h == NULL ) return;
     if( cA == NULL || cB == NULL ) return;
     if( cA == cB ) return;
-
+    
     int iA = indexOf(h, cA);
     int iB = indexOf(h, cB);
 
-    if( iA == -1 || iB == -1 ) return;
+    if( iA == -1 || iB == -1 ) return; 
+
+    DataCard dAux = cA->data;
+    cA->data = cB->data;
+    cB->data = dAux;
 }
 
