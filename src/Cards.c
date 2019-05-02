@@ -173,10 +173,10 @@ void erase( Hand *h, int index ){
 }
 // Erases the Card in the 'index' Position and Return
 Cards* erasePick( Hand *h, int index){
-    if( h = NULL ) return;
+    if( h == NULL ) return NULL;
     if( index >= h->size || index < 0 ){
         printf("Index out of list.");
-        return;
+        return NULL;
     }
 
     Cards *current = atPos(h, index);
@@ -220,7 +220,7 @@ void insert( Hand *h, DataCard card, int index ){
 
 // Inserts a Existest Node at last position
 void insertNode( Hand *h, Cards *node ){
-    if( h = NULL ) return;
+    if( h == NULL ) return;
     if( node == NULL ) return;
 
     h->size++;
