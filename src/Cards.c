@@ -1,6 +1,7 @@
 #include "../hdr/Cards.h"
 #include <stdlib.h>
 #include <stdio.h>
+#include <time.h>
 
 // Creates the Hand
 Hand* createHand(){
@@ -122,9 +123,6 @@ Cards* atPos( Hand *h, int index ){
 
     for( i = 0 ; i < index ; i++ ) current = current->next;
 
-    printf("Card in %d => [Suit: %d, Number: %d]\n",
-                index, current->data.suit, current->data.number);
-
     return current;
 }
 
@@ -230,7 +228,7 @@ void insertNode( Hand *h, Cards *node ){
         return;
     }
 
-    Cards* aux;
+    Cards* aux = h->head;
 
     while( aux->next != NULL ){
         aux = aux->next;
@@ -255,3 +253,38 @@ void xchgCards( Hand *h, Cards *cA, Cards *cB ){
     cB->data = dAux;
 }
 
+// Fill all cards
+void fillAllCards( Hand *h ){
+    if( h == NULL ) return;
+    
+    int i = 0;
+    int j = 0;
+
+    DataCard carta;
+
+    for( i = 0 ; i < 4 ; i++ )
+        for( j = 1 ; j < 14 ; j++ ){
+            carta.suit = i;
+            carta.number = j;
+            push( h, carta );
+        }
+}
+
+// Shuffle cards
+void shuffleCards( Hand *h ){
+    if( h == NULL ) return;
+
+    int i = 0;
+    int j = 0;
+
+    srand(time(NULL));
+
+    int val_max = h->size;
+
+    for( i = 0 ; i < h->size ; i++ )
+        for( j = 0 ; j < h->size ; j++ ){
+            xchgCards(h, atPos(h, rand() % val_max), 
+                atPos(h, rand() % val_max));
+        }
+
+}

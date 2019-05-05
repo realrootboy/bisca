@@ -51,5 +51,9 @@ void insert( Hand *h, DataCard card, int index );
 void insertNode( Hand *h, Cards *node );
 // Exchange the Card named by 'cA' with Card by 'cB'
 void xchgCards( Hand *h, Cards *cA, Cards *cB );
+// Fill all cards
+void fillAllCards( Hand *h );
+// Shuffle cards
+void shuffleCards( Hand *h );
 
 #endif

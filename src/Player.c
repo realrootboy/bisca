@@ -3,8 +3,48 @@
 #include <stdlib.h>
 #include <string.h>
 
+PlayersInGame* createPlayersInGame(){
+    PlayersInGame *pig = (PlayersInGame*) malloc( sizeof(PlayersInGame) );
+    
+    pig->p = NULL;
+    pig->next = NULL;
+    
+    return pig;
+}
+
+void destroyPlayersInGame(PlayersInGame *pig){
+    if(pig == NULL) return;
+    if(pig->p == NULL) return;
+
+    destroyPlayer(pig->p);
+    pig->p = NULL;
+
+    destroyPlayersInGame(pig->next);
+
+    free(pig);
+}
+
+void insertPlayerInGame(PlayersInGame *pig, Player *p){
+    if(pig == NULL) return;
+
+    if(pig->p == NULL){
+        pig->p = p;
+        pig->next = pig;
+        return;
+    }
+
+    PlayersInGame *aux = pig;
+    PlayersInGame *newNode = createPlayersInGame();
+    newNode->p = p;
+
+    while(aux->next != pig) aux = aux->next;
+
+    aux->next = newNode;
+    newNode->next = pig;
+}
+
 Player* createPlayer(char *name){
-    Player* p = (Player*) malloc( sizeof( Player ) );
+    Player* p = (Player*) malloc( sizeof(Player) );
     
     p->points = 0;
     p->h = createHand();
@@ -15,7 +55,7 @@ Player* createPlayer(char *name){
     return p;
 }
 
-void destroyPlayer(Player* p){
+void destroyPlayer(Player *p){
     if( p == NULL ) return;
 
     free(p->name);
@@ -26,11 +66,13 @@ void destroyPlayer(Player* p){
 }
 
 void showPlayerStats(Player *p){
-    if( p = NULL ) return;
+    if( p == NULL ) return;
 
     printf("Name............: %s\n", p->name);
     printf("Points..........: %d\n", p->points);
     printf("Number of Cards.: %d\n", p->h->size);
+    printf("Cards in hand\n");
+    
     printList(p->h);
 }
 
@@ -51,5 +93,5 @@ void pickInDeck(Player *p, Hand *deck){
     Cards* c = erasePick(deck, deck->size - 1);
     c->next = NULL;
 
-    insertNode( p->h );
+    insertNode( p->h, c );
 }
