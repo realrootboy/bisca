@@ -55,5 +55,8 @@ void xchgCards( Hand *h, Cards *cA, Cards *cB );
 void fillAllCards( Hand *h );
 // Shuffle cards
 void shuffleCards( Hand *h );
+// "Cutts" the deck
+DataCard cutDeck( Hand *h );
+
 
 #endif

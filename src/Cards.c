@@ -94,15 +94,16 @@ void printList( Hand *h ){
         printf("Empty list.\n");
         return;
     }
-
+    int i = 1;
     Cards *current = h->head;
-
+    
     while( current != NULL ){
-        printf("[Suit: %d, Number: %d]\n",
-                current->data.suit, current->data.number);
+        printf("%d - [Suit: %d, Number: %d]\n",
+                i, current->data.suit, current->data.number);
         current = current->next;
+        i++;
     }
-
+    
     printf("\n");
 }
 
@@ -287,4 +288,19 @@ void shuffleCards( Hand *h ){
                 atPos(h, rand() % val_max));
         }
 
+}
+
+// "Cutts" the deck
+DataCard cutDeck( Hand *h ){
+    Cards* trump = atPos(h, h->size/2);
+    Cards* trumpR = (Cards*) malloc( sizeof(Cards) );
+
+    trumpR->data = trump->data;
+    trumpR->next = NULL;
+    
+    erase(h, h->size/2);
+
+    insertNode(h, trumpR);
+
+    return trumpR->data;
 }
