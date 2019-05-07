@@ -1,4 +1,5 @@
 #include "../hdr/Cards.h"
+
 #include <stdlib.h>
 #include <stdio.h>
 #include <time.h>
@@ -85,6 +86,8 @@ void pop( Hand *h ){
 
 // Prints the Hand
 void printList( Hand *h ){
+    char suitString[4][7] = {"\u2662", "\u2660", "\u2661", "\u2663"};
+
     if( h == NULL ){
         printf("Empty list.\n");
         return;
@@ -98,8 +101,8 @@ void printList( Hand *h ){
     Cards *current = h->head;
     
     while( current != NULL ){
-        printf("%d - [Suit: %d, Number: %d]\n",
-                i, current->data.suit, current->data.number);
+        printf("%d - [Suit: %s, Number: %d]\n",
+                i, suitString[current->data.suit], current->data.number);
         current = current->next;
         i++;
     }
@@ -264,7 +267,7 @@ void fillAllCards( Hand *h ){
     DataCard carta;
 
     for( i = 0 ; i < 4 ; i++ )
-        for( j = 1 ; j < 14 ; j++ ){
+        for( j = 1 ; j < 11 ; j++ ){
             carta.suit = i;
             carta.number = j;
             push( h, carta );
@@ -303,4 +306,68 @@ DataCard cutDeck( Hand *h ){
     insertNode(h, trumpR);
 
     return trumpR->data;
+}
+
+// Check if have a same suit and return them
+TablePlay* sameSuit(Hand *h, DataCard c){
+    if( h == NULL ) return NULL;
+    
+    int i = 0;
+    int j = 0;
+
+    TablePlay *sameCards = (TablePlay*) malloc(sizeof(TablePlay));
+    
+    sameCards->h = createHand();
+    sameCards->id = (int*) malloc(sizeof(int) * h->size);
+
+    Cards *aux = h->head;
+
+    for( i = 0 ; i < h->size ; i++ ){
+        if( aux->data.suit == c.suit ){
+            insert(sameCards->h, aux->data, sameCards->h->size);
+            sameCards->id[j] = i;
+            j++;
+        }
+        aux = aux->next;
+    }
+
+    sameCards->id = (int*) realloc(sameCards->id, sizeof(int) * j);
+
+    return sameCards;
+}
+
+// Give points and free cards
+int givePoints(Hand *h){
+    int points = 0;
+
+    Cards *aux = h->head;
+
+    while(aux != NULL){
+        switch(aux->data.number){
+            case 1:
+                points += 11;
+            break;
+            case 7:
+                points += 10;
+            break;
+            case 10:
+                points += 4;
+            break;
+            case 9:
+                points += 3;
+            break;
+            case 8:
+                points += 2;
+            break;
+            default:
+                break;
+        }
+        
+        erase(h, 0);
+
+        aux = h->head;
+        
+    }
+
+    return points;
 }

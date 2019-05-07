@@ -5,8 +5,8 @@
 
 typedef struct player{
     int points;
-    Hand* h;
-    char* name;
+    Hand *h;
+    char *name;
 } Player;
 
 typedef struct playersInGame{

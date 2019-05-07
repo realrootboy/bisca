@@ -1,4 +1,5 @@
 #include "../hdr/Player.h"
+
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
@@ -71,9 +72,11 @@ void showPlayerStats(Player *p){
     printf("Name............: %s\n", p->name);
     printf("Points..........: %d\n", p->points);
     printf("Number of Cards.: %d\n\n", p->h->size);
-    printf("Cards in hand\n\n");
-    
-    printList(p->h);
+    if(p->h->size){
+        printf("Cards in hand\n\n");
+        printList(p->h);
+    }
+    printf("\n");
 }
 
 void insertInTable(Player *p, Hand *table, int index){
@@ -89,6 +92,7 @@ void insertInTable(Player *p, Hand *table, int index){
 void pickInDeck(Player *p, Hand *deck){
     if( p == NULL ) return;
     if( deck == NULL ) return;
+    if( deck->size == 0 ) return;
 
     Cards* c = erasePick(deck, 0);
     c->next = NULL;

@@ -6,9 +6,9 @@
 // suit 2 = Hearts
 // suit 3 = Clubs
 
-// number 11 = Jack
-// number 12 = Lady
-// number 13 = Kinging
+// number 8 = Jack
+// number 9 = Lady
+// number 10 = King
 
 typedef struct dataCard {
     int suit;
@@ -20,10 +20,15 @@ typedef struct cards {
     struct cards* next;
 } Cards;
 
-typedef struct hand {
+typedef struct hand{
     int size;
-    Cards* head;
+    Cards *head;
 } Hand;
+
+typedef struct tablePlay {
+    struct hand *h;
+    int *id;
+} TablePlay;
 
 // Creates the Hand
 Hand* createHand();
@@ -57,6 +62,9 @@ void fillAllCards( Hand *h );
 void shuffleCards( Hand *h );
 // "Cutts" the deck
 DataCard cutDeck( Hand *h );
-
+// Check if have a same suit and return them
+TablePlay *sameSuit(Hand *h, DataCard c);
+// Give points and free cards
+int givePoints(Hand *h);
 
 #endif
