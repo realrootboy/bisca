@@ -62,14 +62,90 @@ void botPlay(Player *p, int diff, Hand *table, DataCard trumpInfo){
 
     int have1 = 0;
     int have7 = 0;
+    int have8 = 0;
+    int have9 = 0;
+    int have10 = 0;
     int nonHighTrump = 0;
     int i_have_trump = 0;
-    int i_have_high_1 = 0;
+    int my_trump_number = -1;
+    int trumpIndex = -1;
+    int highCardValue = 0;
+    int highCardIndex = -1;
+    int significantHigh = 1;
+    int insignificantCardMinValue = 7;
+    int insignificantCardIndex = 0;
+    int i = 0;
+
+    Cards *aux = NULL;
+    
 
     if(diff == 1){
         insertInTable(p, table, rand() % p->h->size);
         printList(table);
     } else {
+        aux = p->h->head;
+        while( aux != NULL ){
+            if(aux->data.suit == trumpInfo.suit){
+                i_have_trump = 1;
+                my_trump_number = aux->data.number;
+                trumpIndex = i;
+            }
+            if(aux->data.number > 8 || aux->data.number > highCardValue){
+                if(table->size){
+                    if(table->head->data.suit == aux->data.suit){
+                        highCardValue = aux->data.number;
+                        highCardIndex = i;
+                    }
+                }
+            }
+            if(aux->data.number < insignificantCardMinValue && aux->data.number > 1){
+                insignificantCardMinValue = aux->data.number;
+                insignificantCardIndex = i;
+            }
+            i++;
+            aux = aux->next;
+        }
+
+        aux = table->head;
+        while( aux != NULL ){
+            if(aux->data.number == 1) have1 = 1;
+            if(aux->data.number == 7) have7 = 1;
+            if(aux->data.number == 8) have8 = 1;
+            if(aux->data.number == 9) have9 = 1;
+            if(aux->data.number == 10) have10 = 1;
+            if(aux->data.suit == trumpInfo.suit){
+                if( my_trump_number > aux->data.number ) nonHighTrump = 1;
+            }
+            if(aux->data.number > highCardValue) significantHigh = 0;
+            aux = aux->next;
+        }
+
+        if( i_have_trump ){
+            if(nonHighTrump){
+                if(have1 || have7) {
+                    insertInTable(p, table, trumpIndex);
+                    printList(table);
+                    return;
+                }
+            }
+        }
+
+        if( have1 || have7 || have8 || have9 || have10 ){
+            if(highCardValue && significantHigh) {
+                insertInTable(p, table, highCardIndex);
+                printList(table);
+                return;
+            }
+        }
+
+        if( insignificantCardIndex ){
+            insertInTable(p, table, insignificantCardIndex);
+            printList(table);
+            return;
+        }
+
+        insertInTable(p, table, rand() % p->h->size);
+        printList(table);
 
     }
 }
@@ -80,6 +156,8 @@ void runGame(PlayersInGame *pig, int mode, int diff){
     int team_2_points = 0;
 
     char suitString[4][7] = {"\u2662", "\u2660", "\u2661", "\u2663"};
+
+    char buffer[64];
 
     Hand *table = createHand();
     Hand *deck = createHand();
@@ -112,20 +190,23 @@ void runGame(PlayersInGame *pig, int mode, int diff){
             if( current->p == you){
                 printf("Select a card to play:\n\n");
                 showPlayerStats(current->p);
-                scanf("%d", &cardToPlay);
-                
+                scanf("%s", buffer);
+                cardToPlay = atoi(buffer);
+
                 while( cardToPlay < 1 || cardToPlay > current->p->h->size){
                     printf("Please select a valid index:\n");
-                    scanf("%d", &cardToPlay);
+                    scanf("%s", buffer);
+                    cardToPlay = atoi(buffer);
                 }
             
                 insertInTable(current->p, table, cardToPlay - 1);
 
                 printf("%s plays...\n", current->p->name);
                 printList(table);
-            } else botPlay(current->p, diff, table);
+            } else botPlay(current->p, diff, table, trumpInfo);
             system("sleep 1");
      
+            
             current = current->next;
         }
 
