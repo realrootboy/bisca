@@ -6,11 +6,11 @@ Compilar:
 
 Instruções para a execução do programa:
 
-	Modo: 
+Modo: 
 (1) 2 Jogadores
 (2) 4 Jogadores
 
-	Dificuldade: 
+Dificuldade: 
 (1) Facil
 (2) Intermediário
 
