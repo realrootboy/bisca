@@ -2,18 +2,18 @@
 
 Compilar:
 
-- Executar: make
+  Executar: make
 
 Instruções para a execução do programa:
 
 Modo: 
-(1) 2 Jogadores
-(2) 4 Jogadores
+- (1) 2 Jogadores
+- (2) 4 Jogadores
 
 Dificuldade: 
-(1) Facil
-(2) Intermediário
+- (1) Facil
+- (2) Intermediário
 
-- Executar: ./main <Seu Nome> <Modo> <Dificuldade>
-- Exemplo: ./main Renan 1 2
+  Executar: ./main <Seu Nome> <Modo> <Dificuldade>
+  Exemplo: ./main Renan 1 2
 
