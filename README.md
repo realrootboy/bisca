@@ -2,7 +2,7 @@
 
 Compilar:
 
-  Executar: make
+    Executar: make
 
 Instruções para a execução do programa:
 
@@ -14,6 +14,6 @@ Dificuldade:
 - (1) Facil
 - (2) Intermediário
 
-  Executar: ./main <Seu Nome> <Modo> <Dificuldade>
-  Exemplo: ./main Renan 1 2
+    Executar: ./main <Seu Nome> <Modo> <Dificuldade>
+    Exemplo: ./main Renan 1 2
 
