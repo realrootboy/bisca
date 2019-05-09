@@ -1,70 +1,83 @@
 #ifndef _H_CARDS
 #define _H_CARDS
 
-// suit 0 = Diamonds
-// suit 1 = Spades
-// suit 2 = Hearts
-// suit 3 = Clubs
+// CONVENCAO UTILIZADA
 
-// number 8 = Jack
-// number 9 = Lady
-// number 10 = King
+/* 
+    -- NAIPES -- 
+    suit 0 = Diamonds
+    suit 1 = Spades
+    suit 2 = Hearts
+    suit 3 = Clubs
+*/
 
+/*
+    -- NUMEROS --
+    number 8 = Jack
+    number 9 = Lady
+    number 10 = King
+*/
+
+// ESTRUTURA DE DADOS DE UMA CARTA
 typedef struct dataCard {
     int suit;
     int number;
 } DataCard;
 
+// LISTA DE CARTAS
 typedef struct cards {
     DataCard data;
     struct cards* next;
 } Cards;
 
+// ESTRUTURA QUE GUARDA UMA LISTA E O TAMANHO DELA
 typedef struct hand{
     int size;
     Cards *head;
 } Hand;
 
+// ESTRUTURA QUE GUARDA UMA LISTA DE CARTAS E SEUS
+// RESPECTIVOS INDICES
 typedef struct tablePlay {
     struct hand *h;
     int *id;
 } TablePlay;
 
-// Creates the Hand
+// CRIA UMA MAO DE BARALHO
 Hand* createHand();
-// Destroys the Hand
+// LIBERA UMA MAO DE BARALHO DA MEMORIA
 void destroyHand( Hand *h );
-// Push a Card by Hand
+// ADICIONA UMA CARTA A MAO DE BARALHO
 void push( Hand *h, DataCard card );
-// Pop a Card by Hand
+// REMOVE UMA CARTA DA MAO DO BARALHO
 void pop( Hand *h );
-// Prints the Hand
+// IMPRIME UMA LISTA
 void printList( Hand *h );
-// Check if the Hand is Empty
+// RETORNA SE A LISTA E VAZIA
 int isEmpty( Hand *h );
-// Gives the Card in the 'index' Position 
+// RETORNA A CARTA NA POSICAO INDEX
 Cards* atPos( Hand *h, int index );
-// Gives a Index of Card Named by 'c'
+// RETORNA O INDICE DE UMA CARTA NO BARALHO
 int indexOf( Hand *h, Cards *c );
-// Erases the Card in the 'index' Position
+// APAGA UMA CARTA DA POSICAO INDEX
 void erase( Hand *h, int index );
-// Erases the Card in the 'index' Position and Return;
+// REMOVE E RETORNA UMA CARTA DA POSICAO INDEX
 Cards* erasePick( Hand *h, int index);
-// Inserts the Card in the 'index' Position
+// INSERE UMA CARTA NA POSICAO INDEX
 void insert( Hand *h, DataCard card, int index );
-// Inserts a Existent Node at last position
+// INSERE UMA CARTA(JA EXISTENTE) NA MAO DE BARALHO
 void insertNode( Hand *h, Cards *node );
-// Exchange the Card named by 'cA' with Card by 'cB'
+// TROCA OS DADOS DE DUAS CARTAS PRESENTES NO BARALHO
 void xchgCards( Hand *h, Cards *cA, Cards *cB );
-// Fill all cards
+// PREENCHE O BARALHO COM TODAS AS CARTAS DA BISCA
 void fillAllCards( Hand *h );
-// Shuffle cards
+// EMBARALHA AS CARTAS
 void shuffleCards( Hand *h );
-// "Cutts" the deck
+// CORTA O BARALHO E RETORNA O TRUNFO
 DataCard cutDeck( Hand *h );
-// Check if have a same suit and return them
+// RETORNA CARTAS COM SEUS INDICES QUE POSSUEM NAIPE IGUAL AO NAIPE DE "C"
 TablePlay *sameSuit(Hand *h, DataCard c);
-// Give points and free cards
+// CONTA OS PONTOS DO BARALHO E LIBERA ELES DA MEMORIA
 int givePoints(Hand *h);
 
 #endif

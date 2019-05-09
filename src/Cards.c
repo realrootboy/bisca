@@ -4,7 +4,7 @@
 #include <stdio.h>
 #include <time.h>
 
-// Creates the Hand
+// CRIA UMA MAO DE BARALHO
 Hand* createHand(){
     Hand *h = (Hand*) malloc( sizeof( Hand ) );
     
@@ -19,7 +19,7 @@ Hand* createHand(){
     return h;
 }
 
-// Destroys the Hand
+// LIBERA UMA MAO DE BARALHO DA MEMORIA
 void destroyHand( Hand *h ){
     if( h == NULL ) return;
     if( h->size == 0 ){
@@ -37,7 +37,7 @@ void destroyHand( Hand *h ){
     destroyHand( h );
 }
 
-// Push a Card by Hand
+// ADICIONA UMA CARTA A MAO DE BARALHO
 void push( Hand *h, DataCard card ){
     Cards *c = (Cards*) malloc( sizeof( Cards ) );
     
@@ -59,7 +59,7 @@ void push( Hand *h, DataCard card ){
     }
 }
 
-// Pop a Card by Hand
+// REMOVE UMA CARTA DA MAO DO BARALHO
 void pop( Hand *h ){
     if( h == NULL ) return;
     if( h->head == NULL ){
@@ -84,7 +84,7 @@ void pop( Hand *h ){
     free(current);
 }
 
-// Prints the Hand
+// IMPRIME UMA LISTA
 void printList( Hand *h ){
     char suitString[4][7] = {"\u2662", "\u2660", "\u2661", "\u2663"};
 
@@ -110,10 +110,10 @@ void printList( Hand *h ){
     printf("\n");
 }
 
-// Check if the Hand is Empty
+// RETORNA SE A LISTA E VAZIA
 int isEmpty( Hand *h ){ return h->size == 0; }
 
-// Gives the Card in the 'index' Position 
+// RETORNA A CARTA NA POSICAO INDEX
 Cards* atPos( Hand *h, int index ){
     if( h == NULL ) return NULL;
     if( index >= h->size || index < 0 ){
@@ -130,7 +130,7 @@ Cards* atPos( Hand *h, int index ){
     return current;
 }
 
-// Gives a Index of Card Named by 'c'
+// RETORNA O INDICE DE UMA CARTA NO BARALHO
 int indexOf( Hand *h, Cards *c ){
     if( h == NULL ) return -1;
     if( h->head == NULL ) return -1;
@@ -149,7 +149,7 @@ int indexOf( Hand *h, Cards *c ){
     return -1;
 }
 
-// Erases the Card in the 'index' Position
+// APAGA UMA CARTA DA POSICAO INDEX
 void erase( Hand *h, int index ){
     if( h == NULL ) return;
     if( index >= h->size || index < 0 ){
@@ -173,7 +173,7 @@ void erase( Hand *h, int index ){
 
     free(current);
 }
-// Erases the Card in the 'index' Position and Return
+// REMOVE E RETORNA UMA CARTA DA POSICAO INDEX
 Cards* erasePick( Hand *h, int index){
     if( h == NULL ) return NULL;
     if( index >= h->size || index < 0 ){
@@ -197,7 +197,7 @@ Cards* erasePick( Hand *h, int index){
     return current;
 }
 
-// Inserts the Card in the 'index' Position
+// INSERE UMA CARTA NA POSICAO INDEX
 void insert( Hand *h, DataCard card, int index ){
     if( h == NULL ) return;
     if( index > h->size || index < 0 ) return;
@@ -220,7 +220,7 @@ void insert( Hand *h, DataCard card, int index ){
     previous->next = cardn;
 }
 
-// Inserts a Existest Node at last position
+// INSERE UMA CARTA(JA EXISTENTE) NA MAO DE BARALHO
 void insertNode( Hand *h, Cards *node ){
     if( h == NULL ) return;
     if( node == NULL ) return;
@@ -241,7 +241,7 @@ void insertNode( Hand *h, Cards *node ){
     aux->next = node;
 }
 
-// Exchange the Card named by 'cA' with Card by 'cB'
+// TROCA OS DADOS DE DUAS CARTAS PRESENTES NO BARALHO
 void xchgCards( Hand *h, Cards *cA, Cards *cB ){
     if( h == NULL ) return;
     if( cA == NULL || cB == NULL ) return;
@@ -257,7 +257,7 @@ void xchgCards( Hand *h, Cards *cA, Cards *cB ){
     cB->data = dAux;
 }
 
-// Fill all cards
+// PREENCHE O BARALHO COM TODAS AS CARTAS DA BISCA
 void fillAllCards( Hand *h ){
     if( h == NULL ) return;
     
@@ -274,7 +274,7 @@ void fillAllCards( Hand *h ){
         }
 }
 
-// Shuffle cards
+// EMBARALHA AS CARTAS
 void shuffleCards( Hand *h ){
     if( h == NULL ) return;
 
@@ -293,7 +293,7 @@ void shuffleCards( Hand *h ){
 
 }
 
-// "Cutts" the deck
+// CORTA O BARALHO E RETORNA O TRUNFO
 DataCard cutDeck( Hand *h ){
     Cards* trump = atPos(h, h->size/2);
     Cards* trumpR = (Cards*) malloc( sizeof(Cards) );
@@ -308,7 +308,7 @@ DataCard cutDeck( Hand *h ){
     return trumpR->data;
 }
 
-// Check if have a same suit and return them
+// RETORNA CARTAS COM SEUS INDICES QUE POSSUEM NAIPE IGUAL AO NAIPE DE "C"
 TablePlay* sameSuit(Hand *h, DataCard c){
     if( h == NULL ) return NULL;
     
@@ -336,7 +336,7 @@ TablePlay* sameSuit(Hand *h, DataCard c){
     return sameCards;
 }
 
-// Give points and free cards
+// CONTA OS PONTOS DO BARALHO E LIBERA ELES DA MEMORIA
 int givePoints(Hand *h){
     int points = 0;
 

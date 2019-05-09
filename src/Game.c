@@ -3,6 +3,8 @@
 #include <stdlib.h>
 #include <stdio.h>
 
+// RETORNA QUANTAS POSICOES A LISTA CIRCULAR DEVE RODAR
+// PARA RETORNAR AO GANHADOR
 int whoWin(Hand* table, DataCard trumpInfo, int mode){
     int y = -1;
     int i = 0;
@@ -57,6 +59,7 @@ int whoWin(Hand* table, DataCard trumpInfo, int mode){
     return v.y;
 }
 
+// FAZ A JOGADA DE JOGARES NAO-HUMANOS
 void botPlay(Player *p, int diff, Hand *table, DataCard trumpInfo){
     printf("%s plays...\n", p->name);
 
@@ -150,6 +153,7 @@ void botPlay(Player *p, int diff, Hand *table, DataCard trumpInfo){
     }
 }
 
+// EXECUTA A LOGICA DA BISCA
 void runGame(PlayersInGame *pig, int mode, int diff){
     
     int team_1_points = 0;
@@ -164,13 +168,48 @@ void runGame(PlayersInGame *pig, int mode, int diff){
     
     fillAllCards(deck);
     shuffleCards(deck);
-    
+
+    DataCard trumpInfo = cutDeck(deck);
+
+    do {
+        printf("(1) Show cards in Deck.\n");
+        printf("(2) Shuffle the deck.\n");
+        printf("(3) Cut the deck.\n");
+        printf("(4) Run the game.\n");
+        printf("\nPlease select a valid option:\n");
+
+        scanf("%s", buffer);
+
+        switch(atoi(buffer)){
+            case 1:
+                printList(deck);
+            break;
+            case 2:
+                printf("Shuffling...");
+                shuffleCards(deck);
+                printf(" Shuffled.\n");
+            break;
+            case 3:
+                trumpInfo = cutDeck(deck);
+                printf("Trump Card\n");
+                printf("Suit: %s\n", suitString[trumpInfo.suit]);
+                printf("Number: %d\n\n", trumpInfo.number);
+            break;
+            case 4:
+                printf("Lets go!!!\n");
+            break;
+            default:
+                printf("\nInvalid option...\n\n");
+            break;
+        }
+    } while(atoi(buffer) != 4);
+
     int playerNumber = mode == 1 ? 2 : 4;
     int i = 0;
     int cardToPlay = 0;
     int dataWin = 0;
 
-    DataCard trumpInfo = cutDeck(deck);
+   
 
     PlayersInGame *current = pig;
     Player *you = pig->p;
@@ -181,6 +220,7 @@ void runGame(PlayersInGame *pig, int mode, int diff){
     }
 
     while(pig->p->h->size){
+        printf("Remaining Cards: %d\n\n", deck->size);
         printf("Trump Card\n");
         printf("Suit: %s\n", suitString[trumpInfo.suit]);
         printf("Number: %d\n\n", trumpInfo.number);
@@ -256,6 +296,8 @@ void runGame(PlayersInGame *pig, int mode, int diff){
     destroyHand(table);
 }
 
+// CONFIGURACOES FINAIS DE MODO DE JOGO E VALIDACOES ANTES DE INICIAR
+// A JOGATINA
 void setupGame(char *argv[]){
 
     int mode = atoi(argv[2]);

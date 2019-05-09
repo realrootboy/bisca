@@ -4,6 +4,7 @@
 #include <stdlib.h>
 #include <string.h>
 
+// CRIA UMA LISTA DE JOGADORES IN GAME
 PlayersInGame* createPlayersInGame(){
     PlayersInGame *pig = (PlayersInGame*) malloc( sizeof(PlayersInGame) );
     
@@ -13,6 +14,7 @@ PlayersInGame* createPlayersInGame(){
     return pig;
 }
 
+// LIBERA UMA LISTA DE JOGADORES IN GAME DA MEMORIA
 void destroyPlayersInGame(PlayersInGame *pig){
     if(pig == NULL) return;
     if(pig->p == NULL) return;
@@ -25,6 +27,7 @@ void destroyPlayersInGame(PlayersInGame *pig){
     free(pig);
 }
 
+// INSERE UM JOGADOR NA LISTA DE JOGADORES IN GAME
 void insertPlayerInGame(PlayersInGame *pig, Player *p){
     if(pig == NULL) return;
 
@@ -44,6 +47,7 @@ void insertPlayerInGame(PlayersInGame *pig, Player *p){
     newNode->next = pig;
 }
 
+// CRIA UM JOGADOR
 Player* createPlayer(char *name){
     Player* p = (Player*) malloc( sizeof(Player) );
     
@@ -56,6 +60,7 @@ Player* createPlayer(char *name){
     return p;
 }
 
+// LIBERA UM JOGADOR DA MEMORIA
 void destroyPlayer(Player *p){
     if( p == NULL ) return;
 
@@ -66,6 +71,7 @@ void destroyPlayer(Player *p){
     free(p);
 }
 
+// MOSTRA STATUS DE UM JOGADOR
 void showPlayerStats(Player *p){
     if( p == NULL ) return;
 
@@ -79,6 +85,8 @@ void showPlayerStats(Player *p){
     printf("\n");
 }
 
+// INSERE UMA CARTA NA POSICAO INDEX DA MAO DO JOGADOR
+// NA MAO DE TRABALHO CHAMADA TABLE
 void insertInTable(Player *p, Hand *table, int index){
     if( p == NULL ) return;
     if( table == NULL ) return;
@@ -89,6 +97,7 @@ void insertInTable(Player *p, Hand *table, int index){
     insertNode( table, c ); 
 }
 
+// PEGA A PRIMEIRA CARTA DE UM DECK E INSERE NA MAO DO JOGADOR
 void pickInDeck(Player *p, Hand *deck){
     if( p == NULL ) return;
     if( deck == NULL ) return;

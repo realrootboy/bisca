@@ -1,15 +1,17 @@
+#include <locale.h>
 #include <stdio.h>
 #include <stdlib.h>
 
 #include "hdr/Cards.h"
 #include "hdr/Player.h"
 #include "hdr/Game.h"
-#include <locale.h>
+
 
 int main( int argc, char *argv[] ){
-
+    // PARA IMPRIMIR CARACTERES UTF-8
     setlocale(LC_ALL, "Portuguese_Brasil");
 
+    // CONTROLE DE ENTRADA DE ARGUMENTOS VALIDOS PARA A EXECUCAO DO PROGRAMA
     if( argc <= 3 ){
         printf("Instruções para a execução do programa:\n\n");
         printf("Modo: \n(1) 2 Jogadores\n(2) 4 Jogadores\n\n");
@@ -19,6 +21,7 @@ int main( int argc, char *argv[] ){
         return 0;
     }
     
+    // INICIA AS CONFIGURACOES INICIAIS
     setupGame(argv);
 
     return 0;
