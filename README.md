@@ -15,5 +15,6 @@ Dificuldade:
 - (2) Intermediário
 
     Executar: ./main <Seu Nome> <Modo> <Dificuldade>
+    
     Exemplo: ./main Renan 1 2
 
